@@ -46,21 +46,21 @@ function cekBarang(data) {
   listBarang = [ ...new Set(flatten) ];
 }
 
-function combinations(chars) {
+function combinations(data) {
   var result = [];
   var result1 = [];
-  var f = function(prefix, chars) {
-    for (var i = 0; i < chars.length; i++) {
+  var f = function(prefix, data) {
+    for (var i = 0; i < data.length; i++) {
       if (prefix !== '') {
-        result.push(prefix + ',' + chars[i]);
-        f(prefix + ',' + chars[i], chars.slice(i + 1));
+        result.push(prefix + ',' + data[i]);
+        f(prefix + ',' + data[i], data.slice(i + 1));
       } else {
-        result.push(prefix + chars[i]);
-        f(prefix + chars[i], chars.slice(i + 1));
+        result.push(prefix + data[i]);
+        f(prefix + data[i], data.slice(i + 1));
       }
     }
   }
-  f('', chars);
+  f('', data);
   for(var i=0; i<result.length; i++) {
     // result1.push(txtToTransaksi(result[i]));
     result1.push(chopByComma(result[i]));
@@ -69,10 +69,29 @@ function combinations(chars) {
 
 }
 
+function diurutkan(data) {
+  semuaKombinasi.sort(function (a, b) {
+    return a.length - b.length;
+  });
+}
+
+function cariFN(data) {
+  var countedNames = data.reduce(function (allNames, name) {
+  if (name in allNames) {
+    allNames[name]++;
+  }
+  else {
+    allNames[name] = 1;
+  }
+  return allNames;
+}, {});
+}
+
 // JALANKAN SEMUA FUNGSI DAN CETAK KE CONSOLE
 transaksi = txtToTransaksi(dataTxt);
 cekBarang(transaksi);
 var semuaKombinasi = combinations(listBarang);
+diurutkan(semuaKombinasi);
 
 console.log("list transaksi: ");
 for (var no=0; no<transaksi.length; no++) {
