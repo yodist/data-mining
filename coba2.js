@@ -75,16 +75,30 @@ function diurutkan(data) {
   return data;
 }
 
-function cariFN(data) {
-  var countedNames = data.reduce(function (allNames, name) {
-  if (name in allNames) {
-    allNames[name]++;
+function cariFN(datas, target) {
+  var result = new Object();
+  for (var iDatas=0; iDatas < datas.length; iDatas++) {
+    var data = datas[iDatas];
+    // console.log(data);
+    for (var iTarget=0; iTarget < target.length; iTarget++) {
+      var targetData = target[iTarget];
+      if (!result[data]) result[data]=0;
+      // console.log("target data: " + targetData);
+      var mark = true;
+      for (var i=0; i<data.length; i++) {
+        if(targetData.indexOf(data[i]) === -1) {
+          mark = false;
+          i = data.length;
+        }
+      }
+      if (mark) {
+        result[data]++;
+        // console.log("nambah satu");
+      }
+    }
+    // console.log(result[data]);
   }
-  else {
-    allNames[name] = 1;
-  }
-  return allNames;
-}, {});
+  return result;
 }
 
 // JALANKAN SEMUA FUNGSI DAN CETAK KE CONSOLE
@@ -92,8 +106,9 @@ var transaksi = txtToTransaksi(dataTxt);
 var listBarang = cekBarang(transaksi);
 var semuaKombinasi = combinations(listBarang);
 semuaKombinasi = diurutkan(semuaKombinasi);
+var semuaFN = cariFN(semuaKombinasi, transaksi);
 
-console.log("list transaksi: ");
+console.log("\nlist transaksi: ");
 for (var no=0; no<transaksi.length; no++) {
   console.log("transaksi " + (no+1));
   console.log(transaksi[no]);
@@ -104,3 +119,19 @@ console.log(listBarang);
 
 console.log("\nlist kombinasi:");
 console.log(semuaKombinasi);
+
+console.log("\nsemua fn:");
+console.log(semuaFN);
+
+// MENAMPILKAN SEMUA FN YANG MEMENUHI FN PADA CONSOLE
+
+var fn = 0;
+for (var i=0; i<semuaKombinasi.length; i++) {
+  if (semuaFN[semuaKombinasi[i]]>=2) {
+    if (fn<semuaKombinasi[i].length) {
+      console.log("\nF" + semuaKombinasi[i].length + ": ");
+      fn++;
+    }
+    console.log(semuaKombinasi[i] + ": " + semuaFN[semuaKombinasi[i]]);
+  }
+}
