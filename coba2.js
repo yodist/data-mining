@@ -2,8 +2,6 @@
 // SETUP
 var dataTxt = "gula,beras,roti\nberas,roti,garam,gula\nberas,garam\ngaram,gula\ngaram";
 var koef = 2;
-var listBarang;
-// var transaksi = [[]];
 
 // FUNGSI UNTUK MENGUBAH DARI STRING KE ARRAY
 function txtToTransaksi(data) {
@@ -43,7 +41,8 @@ function cekBarang(data) {
   var flatten = data.reduce(
     (acc, cur) => acc.concat(cur), []
   );
-  listBarang = [ ...new Set(flatten) ];
+  var result = [ ...new Set(flatten) ];
+  return result;
 }
 
 function combinations(data) {
@@ -88,8 +87,8 @@ function cariFN(data) {
 }
 
 // JALANKAN SEMUA FUNGSI DAN CETAK KE CONSOLE
-transaksi = txtToTransaksi(dataTxt);
-cekBarang(transaksi);
+var transaksi = txtToTransaksi(dataTxt);
+var listBarang = cekBarang(transaksi);
 var semuaKombinasi = combinations(listBarang);
 diurutkan(semuaKombinasi);
 
