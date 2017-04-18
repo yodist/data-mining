@@ -71,6 +71,9 @@ function combinations(chars) {
 
 // JALANKAN SEMUA FUNGSI DAN CETAK KE CONSOLE
 transaksi = txtToTransaksi(dataTxt);
+cekBarang(transaksi);
+var semuaKombinasi = combinations(listBarang);
+
 console.log("list transaksi: ");
 for (var no=0; no<transaksi.length; no++) {
   console.log("transaksi " + (no+1));
@@ -78,9 +81,7 @@ for (var no=0; no<transaksi.length; no++) {
 }
 
 console.log("\nlist barang:");
-cekBarang(transaksi);
 console.log(listBarang);
 
-var semuaKombinasi = combinations(listBarang);
 console.log("\nlist kombinasi:");
 console.log(semuaKombinasi);
