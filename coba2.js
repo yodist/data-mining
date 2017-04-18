@@ -69,9 +69,10 @@ function combinations(data) {
 }
 
 function diurutkan(data) {
-  semuaKombinasi.sort(function (a, b) {
+  data.sort(function (a, b) {
     return a.length - b.length;
   });
+  return data;
 }
 
 function cariFN(data) {
@@ -90,7 +91,7 @@ function cariFN(data) {
 var transaksi = txtToTransaksi(dataTxt);
 var listBarang = cekBarang(transaksi);
 var semuaKombinasi = combinations(listBarang);
-diurutkan(semuaKombinasi);
+semuaKombinasi = diurutkan(semuaKombinasi);
 
 console.log("list transaksi: ");
 for (var no=0; no<transaksi.length; no++) {
