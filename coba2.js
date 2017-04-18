@@ -1,7 +1,6 @@
-// var express= require('express');
-// SETUP
+// DATA BELANJA DAN THETA
 var dataTxt = "gula,beras,roti\nberas,roti,garam,gula\nberas,garam\ngaram,gula\ngaram";
-var koef = 2;
+var koef = 3;
 
 // FUNGSI UNTUK MENGUBAH DARI STRING KE ARRAY
 function txtToTransaksi(data) {
@@ -23,6 +22,7 @@ function txtToTransaksi(data) {
   return hasil;
 }
 
+// FUNGSI UNTUK MEMENGGAL DATA BERDASARKAN KOMA
 function chopByComma(data) {
   var i=0, start=0;
   var hasil = [];
@@ -37,6 +37,7 @@ function chopByComma(data) {
   return hasil;
 }
 
+// FUNGSI UNTUK MEMBUAT DAFTAR BARANG UNIK
 function cekBarang(data) {
   var flatten = data.reduce(
     (acc, cur) => acc.concat(cur), []
@@ -45,6 +46,7 @@ function cekBarang(data) {
   return result;
 }
 
+// FUNGSI UNTUK MEMBUAT DAFTAR SEMUA KOMBINASI BARANG
 function combinations(data) {
   var result = [];
   var result1 = [];
@@ -68,6 +70,7 @@ function combinations(data) {
 
 }
 
+// FUNGSI UNTUK MENGURUTKAN ARRAY 2 DIMENSI BERDASARKAN PANJANG SUB ARRAY
 function diurutkan(data) {
   data.sort(function (a, b) {
     return a.length - b.length;
@@ -75,6 +78,7 @@ function diurutkan(data) {
   return data;
 }
 
+// FUNGSI UNTUK MENCARI JUMLAH KESAMAAN SEBUAH KOMBINASI PADA TRANSAKSI
 function cariFN(datas, target) {
   var result = new Object();
   for (var iDatas=0; iDatas < datas.length; iDatas++) {
@@ -101,37 +105,46 @@ function cariFN(datas, target) {
   return result;
 }
 
-// JALANKAN SEMUA FUNGSI DAN CETAK KE CONSOLE
-var transaksi = txtToTransaksi(dataTxt);
-var listBarang = cekBarang(transaksi);
-var semuaKombinasi = combinations(listBarang);
-semuaKombinasi = diurutkan(semuaKombinasi);
-var semuaFN = cariFN(semuaKombinasi, transaksi);
+// FUNGSI UNTUK MENAMPILKAN SEMUA DATA
+function displayData() {
+  console.log("\nlist transaksi: ");
+  for (var no=0; no<transaksi.length; no++) {
+    console.log("transaksi " + (no+1));
+    console.log(transaksi[no]);
+  }
 
-console.log("\nlist transaksi: ");
-for (var no=0; no<transaksi.length; no++) {
-  console.log("transaksi " + (no+1));
-  console.log(transaksi[no]);
-}
+  console.log("\nlist barang:");
+  console.log(listBarang);
 
-console.log("\nlist barang:");
-console.log(listBarang);
+  console.log("\nlist kombinasi:");
+  console.log(semuaKombinasi);
 
-console.log("\nlist kombinasi:");
-console.log(semuaKombinasi);
+  console.log("\nsemua fn:");
+  console.log(semuaFN);
 
-console.log("\nsemua fn:");
-console.log(semuaFN);
+  // MENAMPILKAN SEMUA FN YANG MEMENUHI KOEF PADA CONSOLE
 
-// MENAMPILKAN SEMUA FN YANG MEMENUHI FN PADA CONSOLE
-
-var fn = 0;
-for (var i=0; i<semuaKombinasi.length; i++) {
-  if (semuaFN[semuaKombinasi[i]]>=2) {
-    if (fn<semuaKombinasi[i].length) {
-      console.log("\nF" + semuaKombinasi[i].length + ": ");
-      fn++;
+  var fn = 0;
+  for (var i=0; i<semuaKombinasi.length; i++) {
+    if (semuaFN[semuaKombinasi[i]]>=koef) {
+      if (fn<semuaKombinasi[i].length) {
+        console.log("\nF" + semuaKombinasi[i].length + ": ");
+        fn++;
+      }
+      console.log(semuaKombinasi[i] + ": " + semuaFN[semuaKombinasi[i]]);
     }
-    console.log(semuaKombinasi[i] + ": " + semuaFN[semuaKombinasi[i]]);
   }
 }
+
+// FUNGSI UNTUK MENJALANKAN SEMUA FUNGSI ALGORITMA ASSOCIATION RULE
+function assocRule() {
+  var transaksi = txtToTransaksi(dataTxt);
+  var listBarang = cekBarang(transaksi);
+  var semuaKombinasi = combinations(listBarang);
+  semuaKombinasi = diurutkan(semuaKombinasi);
+  var semuaFN = cariFN(semuaKombinasi, transaksi);
+  displayData();
+}
+
+// MEMANGGIL FUNGSI ASSOCIATION RULE
+assocRule();
