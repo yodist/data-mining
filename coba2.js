@@ -1,6 +1,6 @@
 // DATA BELANJA DAN THETA
 var dataTxt = "gula,beras,roti\nberas,roti,garam,gula\nberas,garam\ngaram,gula\ngaram";
-var koef = 3;
+var koef = 2;
 
 // FUNGSI UNTUK MENGUBAH DARI STRING KE ARRAY
 function txtToTransaksi(data) {
@@ -106,7 +106,7 @@ function cariFN(datas, target) {
 }
 
 // FUNGSI UNTUK MENAMPILKAN SEMUA DATA
-function displayData() {
+function displayData(transaksi, listBarang, semuaKombinasi, semuaFN) {
   console.log("\nlist transaksi: ");
   for (var no=0; no<transaksi.length; no++) {
     console.log("transaksi " + (no+1));
@@ -143,7 +143,7 @@ function assocRule() {
   var semuaKombinasi = combinations(listBarang);
   semuaKombinasi = diurutkan(semuaKombinasi);
   var semuaFN = cariFN(semuaKombinasi, transaksi);
-  displayData();
+  displayData(transaksi, listBarang, semuaKombinasi, semuaFN);
 }
 
 // MEMANGGIL FUNGSI ASSOCIATION RULE
