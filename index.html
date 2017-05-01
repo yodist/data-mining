@@ -8,14 +8,37 @@
   </head>
   <body ng-app="app">
     <h2>Association Rule</h2>
+    <p><em><u>Yodi Satriani, 29113444, Data Mining</u></em></p>
     <div ng-controller="MainController">
       <div ng-if="proc">
+        <h3>Transaksi</h3>
         <ul>
-            <li ng-repeat="transx in x">Transaksi {{$index + 1}}: {{transx}}</li>
+          <li ng-repeat="transx in x">Transaksi {{$index + 1}}: {{transx}}</li>
         </ul>
+        <h3>List Barang</h3>
+        <ul>
+          <li ng-repeat="barang in y">{{barang}}</li>
+        </ul>
+        <h3>Himpunan</h3>
+        <ul style="list-style-type:none">
+          <li ng-repeat="himpunan in z">{{himpunan}}</li>
+        </ul>
+        <h3>Rule</h3>
+        <table border="1">
+          <tr>
+            <th>Statement</th>
+            <th>Support</th>
+            <th>Confidence</th>
+          </tr>
+          <tr ng-repeat="rl in rules">
+            <td>{{rl.rule}}</td>
+            <td>{{rl.supp}} %</td>
+            <td>{{rl.conf}} %</td>
+          </tr>
+        </table>
       </div>
+      <br>
       <button ng-click="assocRule(); proc = !proc;">Proses</button>
-      {{halo}}
     </div>
 
   </body>

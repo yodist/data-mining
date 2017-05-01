@@ -6,6 +6,7 @@ var transaksi;
 var listBarang;
 var semuaKombinasi;
 var semuaFN;
+var hasilRule;
 
 app.controller('MainController', function($scope) {
     // DATA BELANJA DAN THETA
@@ -113,6 +114,52 @@ app.controller('MainController', function($scope) {
       return result;
     }
 
+    // CARI LEGAL FN
+    function cariLegalFN(data) {
+      var result = [];
+      var fn = 0;
+      for (var i=0; i<semuaKombinasi.length; i++) {
+        if (semuaFN[semuaKombinasi[i]]>=koef) {
+          if (fn<semuaKombinasi[i].length) {
+            result.push("\nF" + semuaKombinasi[i].length + ": ");
+            fn++;
+          }
+          result.push("---- " +semuaKombinasi[i] + ": " + semuaFN[semuaKombinasi[i]]);
+        }
+      }
+      return result;
+    }
+
+    // CARI RULE
+    function cariRule() {
+      var r, s, c;
+      var result = [];
+      var lim = 0;
+      for (var i=listBarang.length; i<semuaKombinasi.length; i++) {
+        if (semuaFN[semuaKombinasi[i]]>=koef && semuaKombinasi[i].length==2) {
+          r = "if buy " + semuaKombinasi[i][0] + " then buy " + semuaKombinasi[i][1];
+          s = (semuaFN[semuaKombinasi[i]] / transaksi.length * 100).toFixed(2);
+          c = (semuaFN[semuaKombinasi[i]] / semuaFN[semuaKombinasi[i][0]] * 100).toFixed(2);
+          result[lim] = {
+            "rule": r,
+            "supp": s,
+            "conf": c
+          }
+          lim += 1;
+          r = "if buy " + semuaKombinasi[i][1] + " then buy " + semuaKombinasi[i][0];
+          s = (semuaFN[semuaKombinasi[i]] / transaksi.length * 100).toFixed(2);
+          c = (semuaFN[semuaKombinasi[i]] / semuaFN[semuaKombinasi[i][1]] * 100).toFixed(2);
+          result[lim] = {
+            "rule": r,
+            "supp": s,
+            "conf": c
+          }
+          lim += 1;
+        }
+      }
+      return result;
+    }
+
     // FUNGSI UNTUK MENAMPILKAN SEMUA DATA
     function displayData(transaksi, listBarang, semuaKombinasi, semuaFN) {
       console.log("\nlist transaksi: ");
@@ -153,8 +200,13 @@ app.controller('MainController', function($scope) {
       semuaKombinasi = combinations(listBarang);
       semuaKombinasi = diurutkan(semuaKombinasi);
       semuaFN = cariFN(semuaKombinasi, transaksi);
+      legalFN = cariLegalFN(semuaFN);
+      hasilRule = cariRule();
       displayData(transaksi, listBarang, semuaKombinasi, semuaFN);
       $scope.x = transaksi;
+      $scope.y = listBarang;
+      $scope.z = legalFN;
+      $scope.rules = hasilRule;
     }
 
     // MEMANGGIL FUNGSI ASSOCIATION RULE
