@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Association Rule</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
+    <script src="main.js" charset="utf-8"></script>
+  </head>
+  <body ng-app="app">
+    <h2>Association Rule</h2>
+    <div ng-controller="MainController">
+      <div ng-if="proc">
+        <ul>
+            <li ng-repeat="transx in x">Transaksi {{$index + 1}}: {{transx}}</li>
+        </ul>
+      </div>
+      <button ng-click="assocRule(); proc = !proc;">Proses</button>
+      {{halo}}
+    </div>
+
+  </body>
+</html>

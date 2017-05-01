@@ -1,5 +1,5 @@
 // DATA BELANJA DAN THETA
-var dataTxt = "gula,beras,roti\nberas,roti,garam,gula\nberas,garam\ngaram,gula\ngaram";
+var dataTxt = "gula,beras,roti,gula,gula\nberas,roti,garam,gula\nberas,garam\ngaram,gula\ngaram";
 var koef = 2;
 
 // FUNGSI UNTUK MENGUBAH DARI STRING KE ARRAY
