@@ -8,9 +8,15 @@ var semuaKombinasi;
 var semuaFN;
 var hasilRule;
 
+
+
 app.controller('MainController', function($scope) {
+
+
+
     // DATA BELANJA DAN THETA
     $scope.proc = false;
+
     // FUNGSI UNTUK MENGUBAH DARI STRING KE ARRAY
     function txtToTransaksi(data) {
       var i=0, start=0, noTrans=0;
@@ -155,6 +161,8 @@ app.controller('MainController', function($scope) {
             "conf": c
           }
           lim += 1;
+        } else {
+
         }
       }
       return result;
@@ -195,6 +203,8 @@ app.controller('MainController', function($scope) {
 
     // FUNGSI UNTUK MENJALANKAN SEMUA FUNGSI ALGORITMA ASSOCIATION RULE
     $scope.assocRule = function() {
+      dataTxt = $scope.dataText;
+      koef = $scope.koefisien;
       transaksi = txtToTransaksi(dataTxt);
       listBarang = cekBarang(transaksi);
       semuaKombinasi = combinations(listBarang);
@@ -207,6 +217,7 @@ app.controller('MainController', function($scope) {
       $scope.y = listBarang;
       $scope.z = legalFN;
       $scope.rules = hasilRule;
+
     }
 
     // MEMANGGIL FUNGSI ASSOCIATION RULE

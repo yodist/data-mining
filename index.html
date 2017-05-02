@@ -4,12 +4,15 @@
     <meta charset="utf-8">
     <title>Association Rule</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.min.js" charset="utf-8"></script>
     <script src="main.js" charset="utf-8"></script>
   </head>
   <body ng-app="app">
     <h2>Association Rule</h2>
     <p><em><u>Yodi Satriani, 29113444, Data Mining</u></em></p>
     <div ng-controller="MainController">
+      <textarea ng-model="dataText"></textarea><br>
+      <input type="text" ng-model="koefisien">
       <div ng-if="proc">
         <h3>Transaksi</h3>
         <ul>
